@@ -21,7 +21,8 @@ router.post('/resolve',async (req,res)=>{
 
 router.post('/register', (req, res) => {
     let {
-        name,
+        username,
+        firstname,
         lastname,
         email,
         password,
@@ -33,7 +34,6 @@ router.post('/register', (req, res) => {
             msg: "Password do not match."
         });
     }
-    // Check for the unique Username
     User.findOne({
         username: username
     }).then(user => {
@@ -56,10 +56,12 @@ router.post('/register', (req, res) => {
     });
 
     let newUser = new User({
-        name,
         username,
-        password,
+        firstname,
+        lastname,
         email,
+        password,
+        confirm_password,
         type
     });
     bcrypt.genSalt(10, (err, salt) => {
@@ -69,12 +71,14 @@ router.post('/register', (req, res) => {
             newUser.save().then(user => {
                 return res.status(201).json({
                     success: true,
-                    msg: "Hurry! User is now registered."
+                    msg: "User is now registered."
                 });
             });
         });
     });
 });
+
+
 
 router.post('/login', (req, res) => {
     User.findOne({
@@ -88,11 +92,10 @@ router.post('/login', (req, res) => {
         }
         bcrypt.compare(req.body.password, user.password).then(isMatch => {
             if (isMatch) {
-                // User's password is correct and we need to send the JSON Token for that user
                 const payload = {
                     _id: user._id,
                     username: user.username,
-                    name: user.name,
+                    name: user.firstname+' '+user.lastnameUser,
                     email: user.email
                 }
                 jwt.sign(payload, key, {
@@ -103,7 +106,7 @@ router.post('/login', (req, res) => {
                         success: true,
                         token: `Bearer ${token}`,
                         user: user,
-                        msg: "Hurry! You are now logged in."
+                        msg: "You are now logged in."
                     });
                 })
             } else {

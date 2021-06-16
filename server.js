@@ -1,9 +1,16 @@
+const PORT = process.env.PORT || 5000;
+
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const app = express();
 
-// Bring in the Database Config and connect with the database
-const db = require('config/keys').mongoURI;
+app.use(express.urlencoded({extended: true}));
+app.use(express.json())
+
+
+
+const db = require('./config/keys').mongoURI;
 mongoose.connect(db, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -16,12 +23,25 @@ mongoose.connect(db, {
 });
 
 
-const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => {
-    console.log(`Server started on port ${PORT}`);
-})
+
+
+//app.use(express.static(path.join(__dirname, 'public')));
+
+
+
+
+
+
+const auth = require('./routes/api/auth');
+app.use('/api/auth',auth);
+
 
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'public/index.html'));
+})
+
+
+app.listen(PORT, () => {
+    console.log(`Server started on port ${PORT}`);
 })

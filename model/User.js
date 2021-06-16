@@ -3,11 +3,17 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
-    name :{
+    username: {
+        type:String ,
+        required :true,
+    
+    }
+    ,
+    firstname :{
         type :String , 
         required:true
     },
-    username:{
+    firstname:{
         type : String ,
         required:true
     },
@@ -24,17 +30,15 @@ const UserSchema = new Schema({
         type:String,
         required:true
     },
-    author:{
+    student:{
         type:Schema.Types.ObjectId,
-        ref:'authors',
+        ref:'students',
         required:false
 
     },
-    organization:{
-        type:Schema.Types.ObjectId,
-        ref:'organizations',
+    teacherRank:{
+       type:Number,
         required:false
-
     }
 });
 
