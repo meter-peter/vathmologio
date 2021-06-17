@@ -38,20 +38,21 @@ router.post('/new', async (req, res) => {
   });
 
 //searching for specific lesson
-router.get('/search/:lessonName', async (req, res) =>{
-    const lesson = await Lesson.findById(req.params.lessonName);
+router.get('/search/:_id', async (req, res) =>{
+    const lesson = await Lesson.findById(req.params._id);
     if(lesson){
         res.send(lesson);
     }
 })
 //updating a specific lesson
-router.put('/update/:lessonName',async (req, res) =>{
-    Lesson.findByIdAndUpdate(req.params.lessonName, (err, body)=>{
+router.put('/update/:lessonId',async (req, res) =>{
+    const lesson= await Lesson.findByIdAndUpdate(req.params.lessonId, (err, body)=>{
         if(err){
             res.send(err);
         }
         res.send(body);
     });
+
 })
 //deleting a lesson
 router.delete('/delete/:lessonName', async (req, res)=>{
