@@ -36,6 +36,8 @@ mongoose.connect(db, {
 const auth = require('./routes/api/auth');
 app.use('/api/auth',auth);
 
+const lessons = require('./routes/api/lessons');
+app.use('/api/lessons',lessons)
 
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'public/index.html'));
