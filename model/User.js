@@ -12,7 +12,7 @@ const UserSchema = new Schema({
         type :String , 
         required:true
     },
-    firstname:{
+    lastname:{
         type : String ,
         required:true
     },
@@ -35,9 +35,11 @@ const UserSchema = new Schema({
         required:false
 
     },
-    teacherRank:{
-       type:Number,
+    teacher:{
+        type:Schema.Types.ObjectId,
+        ref:'teachers',
         required:false
+
     }
 });
 

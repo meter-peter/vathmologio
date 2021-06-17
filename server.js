@@ -39,9 +39,9 @@ app.use('/api/auth',auth);
 const lessons = require('./routes/api/lessons');
 app.use('/api/lessons',lessons)
 
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public/index.html'));
-})
+// app.get('*', (req, res) => {
+//     res.sendFile(path.join(__dirname, 'public/index.html'));
+// })
 
 
 app.listen(PORT, () => {
