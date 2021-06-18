@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const LessonTeaching = new Schema({
-        lesson:{
+const LessonTeachingSchema = new Schema({
+        lessonAssignment:{
             type:[{type:Schema.Types.ObjectId}],
-            ref:'lessons',
+            ref:'lessonsAssignment',
             required:true
         },
         year:{
@@ -16,11 +16,7 @@ const LessonTeaching = new Schema({
             type:Number,
             required:true
         },
-        teacher:{
-            type:[{type:Schema.Types.ObjectId}],
-            ref:'teacher',
-            required:true
-        },
+
         theoryMultiplier:{
             type:Number,
             required:true
@@ -35,7 +31,8 @@ const LessonTeaching = new Schema({
         }
 
 
+
     }
 );
 
-module.exports = Lesson = mongoose.model('lessonTeaching',LessonTeaching);
+module.exports = Lesson = mongoose.model('lessonTeaching',LessonTeachingSchema);

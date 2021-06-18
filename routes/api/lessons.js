@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const Lesson = require('../../model/Lesson');
-const Lesson = require('../../model/Teacher');
-const Lesson = require('../../model/Student');
-const Lesson = require('../../model/LessonAssignment');
-const Lesson = require('../../model/LessonStatement');
-const Lesson = require('../../model/LessonTeaching');
+const Teacher = require('../../model/Teacher');
+const Student = require('../../model/Student');
+const LessonAssignment = require('../../model/LessonAssignment');
+const LessonStatement = require('../../model/LessonStatement');
+const LessonTeaching = require('../../model/LessonTeaching');
 
 //epistrefei array olwn twn mathimatwn
 
@@ -67,14 +67,14 @@ router.delete('/delete/:lessonName', async (req, res)=>{
     }
     return res.send(lesson);
 })
-
+//ANA8ESI MA8IMATOS
 router.post('/assignment', async (req, res) =>{
     let {lessonName, teacher} = req.body;
     const assignment = new LessonAssignment();
 
-    LessonAssignment.lesson= lessonName;
-    LessonAssignment.teacher= teacher;
-    await LessonAssignment.save();
+    assignment.lesson= lessonName;
+    assignment.teacher= teacher;
+    await assignment.save();
 })
 
 module.exports = router;

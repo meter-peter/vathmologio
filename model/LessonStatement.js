@@ -15,12 +15,17 @@ const LessonStatementSchema = new Schema({
 
         theory_grade:{
             type:Number,
-            required:true
+            required:false
         },
         lab_grade:{
             type:Number,
-            required:true
+            required:false
         },
+        final_state:{
+            type:Boolean,
+            required:true
+        }
+
 
 
 
