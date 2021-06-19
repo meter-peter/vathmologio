@@ -10,6 +10,8 @@ import 'es6-promise/auto';
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import vuetify from './plugins/vuetify'
+import '@babel/polyfill'
 Vue.config.productionTip = false
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
@@ -27,7 +29,8 @@ new Vue({
   router,
   store,
   axios,
-
-  render: h => h(App),
-
+  vuetify,
+  render: h => h(App)
 }).$mount('#app')
+
+module.exports = Vue;

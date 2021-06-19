@@ -146,4 +146,5 @@ export default {
 .form-control {
   border-radius: 0;
 }
+
 </style>
