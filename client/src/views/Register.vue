@@ -1,10 +1,9 @@
 <template>
   <div>
-    <h2>Register</h2>
     <div class="row">
       <div class="card mx-auto">
-        <div class="card-header text-white bg-primary">
-          <h4>Register</h4>
+        <div class="card-header">
+          <h4>Register User</h4>
         </div>
         <div class="card-body">
           <form @submit.prevent="registerUser">
@@ -20,13 +19,23 @@
               >
             </div>
             <div class="form-group">
-              <label for="name">Name</label>
+              <label for="name">First Name</label>
+              <input
+                id="firstname"
+                type="text"
+                placeholder="First Name"
+                name="name"
+                v-model="firstname"
+                class="form-control"
+              ></div>
+               <div class="form-group">
+              <label for="name">Last Name</label>
               <input
                 id="name"
                 type="text"
-                placeholder="Name"
+                placeholder="Last Name"
                 name="name"
-                v-model="name"
+                v-model="lastname"
                 class="form-control"
               >
             </div>
@@ -41,6 +50,11 @@
                 class="form-control"
               >
             </div>
+            <div class="form-group">
+                    <label>Select what best describes you <span class="require">*</span></label>
+                    <b-form-select v-model="selected" :options="options"></b-form-select>
+                   
+                </div>
             <div class="form-group">
               <label for="password">Password</label>
               <input
@@ -63,7 +77,7 @@
                 v-model="confirm_password"
               >
             </div>
-            <button class="btn btn-primary">Register</button>
+            <button class="btn btn-dark">Register</button>
             &nbsp;&nbsp;&nbsp;&nbsp;
             <router-link to="/login" class="card-link">Already have an account?</router-link>
           </form>
@@ -81,10 +95,20 @@ export default {
   data() {
     return {
       username: "",
+      firstname:"",
+      lastname:"",
       password: "",
       confirm_password: "",
       name: "",
-      email: ""
+      email: "",
+    selected:"null",
+    options: [
+             { value: 1, text: 'Student' },
+          { value: 2, text: 'Academic personnel' },
+         
+      
+        ],
+
     };
   },
   methods: {
@@ -95,7 +119,9 @@ export default {
         password: this.password,
         confirm_password: this.confirm_password,
         email: this.email,
-        name: this.name
+        firstname: this.firstname,
+        lastname: this.lastname,
+        type:this.selected
       };
       this.register(user).then(res => {
         if (res.data.success) {
@@ -109,11 +135,13 @@ export default {
 
 <style>
 .card {
+    margin-top: 50px;
   width: 60%;
   border-radius: 0;
 }
 .btn {
-  border-radius: 0;
+    margin-top: 7px;
+  border-radius: 2;
 }
 .form-control {
   border-radius: 0;

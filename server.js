@@ -4,9 +4,11 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const app = express();
+const cors = require('cors')
 
 app.use(express.urlencoded({extended: true}));
 app.use(express.json())
+app.use(cors({ origin: ['http://localhost:8080'], }))
 
 
 
@@ -26,7 +28,6 @@ mongoose.connect(db, {
 
 
 
-//app.use(express.static(path.join(__dirname, 'public')));
 
 
 

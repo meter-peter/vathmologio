@@ -20,6 +20,7 @@ router.post('/resolve',async (req,res)=>{
   });
 
 router.post('/register', (req, res) => {
+    console.log(req.body)
     let {
         username,
         firstname,

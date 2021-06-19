@@ -4,8 +4,7 @@ import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import router from './router'
 import store from './store'
 import axios from 'axios';
-import 'es6-promise/auto'
-
+import 'es6-promise/auto';
 
 
 
