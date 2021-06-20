@@ -7,11 +7,19 @@ Vue.use(Router)
 const router = new Router({
     mode: 'history',
     base: process.env.BASE_URL,
-    routes: [
+    routes: [ {
+      path: 'admin',
+      name: 'admin',
+      component: () => import('../views/Admin.vue'),
+      meta: {
+        requiresAuth: true
+      }
+    },
+
       
       {
         path: '/Dashboard',
-        name: 'dashboard',
+        name: 'Dashboard',
         component: () => import('../views/Dashboard.vue'),
         meta: {
           requiresAuth: true
@@ -40,6 +48,14 @@ const router = new Router({
         meta: {
           requiresGuest: true
         }
+      },
+      {
+        path: '/Admin',
+        name: 'Admin',
+        component: () => import('../views/Admin.vue'),
+        meta: {
+          requiresAuth: true
+        }
       }
       ,
       
@@ -62,7 +78,7 @@ const router = new Router({
     }
       else if(to.matched.some(record => record.meta.requiresTeacher)) {
         if (store.getters.isTeacher) {
-          next('/teacherDashboard');
+          next();
         } else {
           next('/profile');
         }}
