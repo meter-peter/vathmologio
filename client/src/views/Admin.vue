@@ -3,7 +3,7 @@
       <ul class="list-group">
         <li class="list-group-item">Email: {{ user.email }}</li>
         <li class="list-group-item">Username: {{ user.username }}</li>
-        <li class="list-group-item">Name: {{ user.name }}</li>
+        <li class="list-group-item">Name: {{ user.firstname }}</li>
         <li class="list-group-item">Role: {{user.type}}</li>
       </ul>
         <b-nav tabs>

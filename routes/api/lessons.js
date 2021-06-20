@@ -10,8 +10,11 @@ const LessonTeaching = require('../../model/LessonTeaching');
 //epistrefei array olwn twn mathimatwn
 
 router.get('/', async (req, res) => {
-    const users = await Lesson.find({});
-    res.json(users);
+    const lessons = await Lesson.find({}).catch(err=>{
+        return res.send(err)
+    });
+    return res.send(lessons)
+    
     
     });
 

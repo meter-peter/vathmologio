@@ -31,6 +31,14 @@ const router = new Router({
           requiresGuest: true
         }
       },
+      {
+        path: '/browse',
+        name: 'browse',
+        component: () => import('../views/Browse.vue'),
+        meta: {
+        
+        }
+      },
      
       
      ]
