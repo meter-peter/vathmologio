@@ -1,8 +1,6 @@
 const PORT = process.env.PORT || 5000;
-
 const express = require('express');
 const mongoose = require('mongoose');
-
 const app = express();
 const cors = require('cors')
 const passport = require('passport');
@@ -36,6 +34,8 @@ app.use('/api/auth',auth);
 const lessons = require('./routes/api/lessons');
 app.use('/api/lessons',lessons)
 
+const admin = require('./routes/admin')
+app.use('/admin',admin);
 // app.get('*', (req, res) => {
 //     res.sendFile(path.join(__dirname, 'public/index.html'));
 // })

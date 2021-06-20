@@ -44,8 +44,8 @@ router.post('/register', (req, res) => {
             });
         }
     }).catch(err=>{
-        return res.send(err);    })
-    // Check for the Unique Email
+        return res.send(err);
+    })
     User.findOne({
         email: email
     }).then(user => {

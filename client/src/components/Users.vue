@@ -12,13 +12,13 @@
 </template>
 
 <script>
-import {mapState,mapActions} from 'vuex';
+import {mapGetters,mapActions} from 'vuex';
 export default {
     components:{
 
   },
     computed: {
-       ...mapState(['users'])
+       ...mapGetters(['users'])
     },
  methods:{
      ...mapActions(["loadusers"])
