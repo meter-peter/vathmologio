@@ -8,31 +8,13 @@ const router = new Router({
     mode: 'history',
     base: process.env.BASE_URL,
     routes: [ {
-      path: 'admin',
-      name: 'admin',
+      path: '/admin',
+      name: 'Admin',
       component: () => import('../views/Admin.vue'),
       meta: {
         requiresAuth: true
       }
     },
-
-      
-      {
-        path: '/Dashboard',
-        name: 'Dashboard',
-        component: () => import('../views/Dashboard.vue'),
-        meta: {
-          requiresAuth: true
-        }
-      },   
-      {
-        path: '/teacherDashboard',
-        name: 't-dashboard',
-        component: () => import('../views/TeacherDashboard.vue'),
-        meta: {
-          requiresTeacher: true
-        }
-      },   
       {
         path: '/register',
         name: 'register',
@@ -49,15 +31,7 @@ const router = new Router({
           requiresGuest: true
         }
       },
-      {
-        path: '/Admin',
-        name: 'Admin',
-        component: () => import('../views/Admin.vue'),
-        meta: {
-          requiresAuth: true
-        }
-      }
-      ,
+     
       
      ]
   });

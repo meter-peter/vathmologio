@@ -2,6 +2,10 @@ import axios from 'axios';
 import router from '../../router/index';
 const serverAdress ="http://localhost:5000";
 
+const token = localStorage.getItem("token");
+if(token)
+axios.defaults.headers.common['Authorization'] = token
+
 const state = {
     token: localStorage.getItem('token') || '',
     user: {},
