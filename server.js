@@ -24,6 +24,8 @@ mongoose.connect(db, {
 }).catch(err => {
     console.log(`Unable to connect with the database ${err}`)
 });
+const add_get_Data = require('./routes/api/add_get_Data');
+app.use('/api/add_get_Data',add_get_Data);
 
 const excel = require('./routes/api/excel');
 app.use('/api/excel',excel);

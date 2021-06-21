@@ -10,14 +10,13 @@ const User = require('../../model/User');
 
 */
 
-
 router.post('/resolve',async (req,res)=>{
  
     const records = await User.find().where('_id').in(req.body).exec();
     res.json(records);
     console.log(res.body);
     console.log(records);
-  });
+});
 
 router.post('/register', (req, res) => {
     console.log(req.body)
@@ -78,8 +77,6 @@ router.post('/register', (req, res) => {
         });
     });
 });
-
-
 
 router.post('/login', (req, res) => {
     User.findOne({

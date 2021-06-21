@@ -56,16 +56,12 @@ router.post('/excelFile' , async (req,res) =>{
                         })
                     }
 
-
                 })
 
             }
         })
-
-
     }
     console.log(posts[0].AM);
-
 })
 
 //EXPORT STUDENT GRADES IN EXCEL FILE
@@ -100,10 +96,15 @@ router.post('exportExcelFile', async (req, res) =>{
                                 }else if(lessonStatement){
 
                                     let i=0;
-                                    while(i < lessonStatement.length){
-                                        let current = {AM:lessonStatement[i].AM, theory_grade:lessonStatement[i].theory_grade, lab_grade:lessonStatement[i].lab_grade}
+                                    while(i < lessonStatement.length) {
+                                        let current = {
+                                            AM: lessonStatement[i].AM,
+                                            theory_grade: lessonStatement[i].theory_grade,
+                                            lab_grade: lessonStatement[i].lab_grade
+                                        }
+
                                         data.push(current);
-                                        i=i+1;
+                                        i = i + 1;
                                     }
                                 }
                             })
