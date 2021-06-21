@@ -10,8 +10,11 @@ const StudentSchema = new Schema({
         year_registered:{
             type:String,
             required:true
+        },
+        user:{
+            type:[{type:Schema.Types.ObjectId}],
+            ref:'users'
         }
-
     }
 );
 
