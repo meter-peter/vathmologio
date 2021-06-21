@@ -45,6 +45,8 @@ export default {
 
  methods:{
      ...mapActions(["loadusers"])
+
+     
  },
     created() {
         this.loadusers();

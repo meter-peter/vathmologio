@@ -13,12 +13,6 @@
                 <input class="input" v-model="lesson.desc" type="text" placeholder="Last Name" required>
             </div>
         </div>
-        <div class="field">
-            <label class="label">{{editAddText}} Date</label>
-            <div class="control">
-                <input class="input" v-model="currentDate" type="text" disabled>
-            </div>
-        </div>
         
         <div class="field-body">
             <div class="field is-narrow">
@@ -46,8 +40,10 @@
 </template>
 
 <script>
+
+import{mapGetters , mapActions} from 'vuex'
+
 export default {
-    name:'lessonInputForm',
     props:['editId'],
     data(){
         return {
@@ -74,6 +70,8 @@ export default {
         }
     },
     computed:{
+        ...mapGetters(['lessons']),
+
         currentDate(){
             return new Date().toString();
         },
@@ -81,7 +79,13 @@ export default {
             return this.editId ? "Edit":"Insert";
         }
     },
+
+    mounted() {
+        this.loadlessons();
+    },
     methods:{
+        ...mapActions(["loadlessons","addLesson"]),
+
         resetFormData() {
                 this.lesson = {
                 name:'',
