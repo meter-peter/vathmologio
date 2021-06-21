@@ -7,6 +7,7 @@ const LessonAssignment = require('../../model/LessonAssignment');
 const LessonStatement = require('../../model/LessonStatement');
 const LessonTeaching = require('../../model/LessonTeaching');
 
+
 router.post('/addStudent', async (req, res) =>{
     const {am , year_registered} = req.body;
     let newStudent = new Student({
@@ -23,14 +24,7 @@ router.post('/addStudent', async (req, res) =>{
     console.log(newStudent);
 })
 
-router.get('/getStudents', async (req,res) =>{
-    console.log("I got here")
-    await Student.find({},(err, students)=>{
-        console.log("I got here")
-        res.send(students);
-    });
 
-})
 
 router.post('/addLesson', async (req, res) =>{
     const {name , desc, requires} = req.body;
@@ -50,65 +44,43 @@ router.post('/addLesson', async (req, res) =>{
     console.log(newLesson);
 })
 
-router.get('/getLessons', async (req,res) =>{
-    console.log("I got here")
-    await Lesson.find({},(err, lessons)=>{
-        console.log("I got here")
-        res.send(lessons);
-    });
-
-})
-
-router.post('/addTeacher', async (req, res) =>{
-    const {teacherRank , lessonsTeaching} = req.body;
+router.post('/addTeacher', async (req, res) => {
+    const {teacherRank, lessonsTeaching} = req.body;
     let allLessons = []
-    let i;
-    for(i in lessonsTeaching){
-        await Lesson.findById(i, (err, lesson)=>{
-            allLessons.push(lesson);
-        })
-    }
+    console.log(lessonsTeaching);
 
-    let newTeacher = new Teacher({
-        teacherRank,
-        allLessons
-    });
-
-    newTeacher.save().then(()=>{
-        return res.status(201).json({
-            success: true,
-            msg: "Teacher is now registered."
+    await Lesson.findById(lessonsTeaching, (err, newLesson) => {
+        let newTeacher = new Teacher({
+            teacherRank,
+            newLesson
         });
-    });
-    console.log(newTeacher);
+
+        newTeacher.save().then(() => {
+            return res.status(201).json({
+                success: true,
+                msg: "Teacher is now registered."
+            });
+        });
+        console.log(newTeacher);
+    })
+
 })
 
 router.post('/addLessonAssignment', async (req, res) =>{
     const {lesson , teacher} = req.body;
-    await Lesson.findById(lesson, (err, newLesson) =>{
-        Teacher.findById(teacher, (err, newTeacher) =>{
-            let newAssignment = new LessonAssignment({
-                newLesson,
-                newTeacher
-            });
 
-            newAssignment.save().then(()=>{
-                return res.status(201).json({
-                    success: true,
-                    msg: "Assignment is now registered."
-                });
-            });
-            console.log(newAssignment);
-        })
+    let newAssignment = new LessonAssignment({
+        lesson,
+        teacher
     })
 
-})
-router.get('/getLessonAssignment', async (req,res) =>{
-    console.log("I got here")
-    await LessonAssignment.find({},(err, lessonAssignments)=>{
-        console.log("I got here")
-        res.send(lessonAssignments);
-    });
+    console.log(newAssignment);
+    newAssignment.save().then(()=> {
+        return res.status(201).json({
+            success: true,
+            msg: "Assignment is now registered."
+        })
+    })
 })
 
 
@@ -133,14 +105,6 @@ router.post('/addLessonTeaching', async (req, res) =>{
         console.log(newLessonTeaching);
     })
 
-})
-
-router.get('/getLessonTeaching', async (req,res) =>{
-    console.log("I got here debug 1")
-    await LessonTeaching.find({},(err, lessonTeachings)=>{
-        console.log("I got here debug 2")
-        res.send(lessonTeachings);
-    });
 })
 
 router.post('/addLessonStatement', async (req, res) =>{
@@ -171,11 +135,4 @@ router.post('/addLessonStatement', async (req, res) =>{
 
 })
 
-router.get('/getLessonStatement', async (req,res) =>{
-    console.log("I got here debug 1")
-    await LessonStatement.find({},(err, lessonStatements)=>{
-        console.log("I got here debug 2")
-        res.send(lessonStatements);
-    });
-})
 module.exports = router;

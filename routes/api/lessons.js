@@ -53,24 +53,7 @@ router.get('/search/:_id', async (req, res) =>{
     }
 })
 
-//updating a specific lesson
-router.put('/update/:lessonId',async (req, res) =>{
-    const lesson= await Lesson.findByIdAndUpdate(req.params.lessonId, (err, body)=>{
-        if(err){
-            res.send(err);
-        }
-        res.send(body);
-    });
-})
 
-//deleting a lesson
-router.delete('/delete/:lessonName', async (req, res)=>{
-    const lesson = await Lesson.findById(req.params.lessonName);
-    if(lesson){
-        await lesson.remove();
-    }
-    return res.send(lesson);
-})
 
 //ANA8ESI MA8IMATOS
 router.post('/assignment', async (req, res) =>{

@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const lessonAssignment = require('../model/LessonAssignment');
 
 const LessonTeachingSchema = new Schema({
         lessonAssignment:{
@@ -29,8 +30,6 @@ const LessonTeachingSchema = new Schema({
             type:Number,
             required:true
         }
-
-
 
     }
 );
