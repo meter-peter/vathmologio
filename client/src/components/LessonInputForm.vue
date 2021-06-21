@@ -2,37 +2,22 @@
 <div>
     <form @submit="submit($event)">
         <div class="field">
-            <label class="label">{{editAddText}} Title</label>
+            <label class="label">{{editAddText}} First Name</label>
             <div class="control">
                 <input class="input" v-model="lesson.name" type="text" placeholder="First Name" required>
             </div>
         </div>
         <div class="field">
-            <label class="label">{{editAddText}} Description</label>
+            <label class="label">{{editAddText}} Last Name</label>
             <div class="control">
                 <input class="input" v-model="lesson.desc" type="text" placeholder="Last Name" required>
             </div>
-        </div>
-        
-        <div class="field-body">
-            <div class="field is-narrow">
-            <label class="label">{{editAddText}} semester</label>    
-            <div class="control">
-                <label class="radio">
-                <input type="radio" v-model="lesson.semester" value="Male" name='semester' required>
-                Male
-                </label>
-                <label class="radio">
-                <input type="radio" v-model="lesson.semester" value="Female" name='semester'>
-                Female
-                </label>
-            </div>
-            </div>
+       
         </div>
 
         <div class="field is-grouped" style="margin-top:20px">
             <div class="control">
-                <button class="button is-link">{{editAddText}} lesson</button>
+                <button class="button is-link">{{editAddText}} Lesson</button>
             </div>
         </div>
     </form>
@@ -40,57 +25,55 @@
 </template>
 
 <script>
-
-import{mapGetters , mapActions} from 'vuex'
+import {mapActions,mapGetters} from 'vuex';
 
 export default {
+    
+    name:'LessonInputForm',
     props:['editId'],
+
     data(){
         return {
             lesson:{
                 name:'',
                 desc:'',
-                semester:'',
+                sem:'',
             }
         }
     },
     watch:{
         editId(val){
             if(val){
-                let current = this.$store.state.lessons.filter(i => {
+                let current = this.lessons.filter(i => {
                     if(i.id==val) return true;
                     else false;
                 })[0]
                 this.lesson.name = current.name;
                 this.lesson.desc = current.desc;
-                this.lesson.semester = current.semester;
+                this.lesson.sem = current.sem;
             }else{
                 this.resetFormData()
             }
         }
     },
     computed:{
-        ...mapGetters(['lessons']),
-
         currentDate(){
             return new Date().toString();
         },
         editAddText(){
             return this.editId ? "Edit":"Insert";
-        }
-    },
-
-    mounted() {
-        this.loadlessons();
+            
+        },
+         ...mapGetters(['lessons'])
     },
     methods:{
-        ...mapActions(["loadlessons","addLesson"]),
-
+        ...mapActions(["loadlessons","addlesson"])
+,
         resetFormData() {
                 this.lesson = {
                 name:'',
                 desc:'',
-                semester:'',
+                sem:'',
                 }
         },
         submit(event){
@@ -99,15 +82,18 @@ export default {
             payload['date'] = this.currentDate;
             
             if(!this.editId){
-                payload['id'] =  this.$store.state.lessons.length!=0? Math.max(...this.$store.state.lessons.map(i => i.id)) + 1 : 0;
+                payload['id'] =  this.lessons.length!=0? Math.max(...this.lessons.map(i => i.id)) + 1 : 0;
                 const lesson = {...payload};
-                this.$store.dispatch('addlesson',lesson);
+                this.$store.dispatch('addLesson',lesson);
                 this.resetFormData()
             }else{
                 payload['id'] =   this.editId;
                 const lesson = {...payload}
-                this.$store.dispatch('editlesson',lesson);                
+                this.$store.dispatch('editLesson',lesson);                
             }
+        },
+        created(){
+            this.loadlessons();
         }
     }
 }

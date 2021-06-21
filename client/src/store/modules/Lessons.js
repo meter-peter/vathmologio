@@ -9,12 +9,16 @@ const state = {
 };
 
 const getters = {
+<<<<<<< Updated upstream
    lessons: state => state.lessons,
    currentlesson :state =>state.currentlesson
+=======
+  lessons: state => state.lessons,
+>>>>>>> Stashed changes
 };
 
 const actions = {
-    loadlessons({commit}){
+    async loadlessons({commit}){
         axios
         .get(serverAdress)
         .then(res =>{
@@ -26,14 +30,19 @@ const actions = {
     async addLesson({
         commit
     }, lessondata) {
+<<<<<<< Updated upstream
     
 
             let res = await axios.post(serverAdress+'/api/lessons/addLesson', lessondata);
+=======
+            let res = await axios.post(serverAdress+'/new', lessondata);
+>>>>>>> Stashed changes
             if (res.data.success !== undefined) {
                commit("got_lessons",res.data)   
             }
     
     },
+<<<<<<< Updated upstream
     getLessonById({commit},lessonid){
        axios.get(serverAdress+"/getLesson/"+lessonid).then(res=>{
         commit('loadcurrentlesson',res.data)
@@ -41,6 +50,13 @@ const actions = {
        })
        .catch(err => console.log("ERROR"+err))
    }
+=======
+    async getLessonbyid({commit}){
+        await axios.get()
+    }
+
+    // Get the user Profile
+>>>>>>> Stashed changes
 
 };
 

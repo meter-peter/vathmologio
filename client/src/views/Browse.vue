@@ -15,6 +15,7 @@
         </ul>
         <PublicLessonItem v-for="lesson in filterlessons" :key="lesson.id" :lesson="lesson" @click="openLesson(lesson)" />
     </div>
+    
    
 </div>
 
@@ -64,6 +65,8 @@ export default {
     },
     methods: {
         ...mapActions(["loadlessons"]),
+
+
 
     },
     openPost(data) {

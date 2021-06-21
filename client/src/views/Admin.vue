@@ -12,7 +12,7 @@
 <div>
   <b-tabs content-class="mt-3">
     <b-tab title="Users" active><Users></Users></b-tab>
-    <b-tab title="Second"><LessonInputForm></LessonInputForm></b-tab>
+    <b-tab title="Second"><Lesson></Lesson></b-tab>
     <b-tab title="Disabled" disabled><p>I'm a disabled tab!</p></b-tab>
   </b-tabs>
 </div>
@@ -30,19 +30,23 @@
 <script>
 import {mapGetters,mapActions} from 'vuex'
 import Users from '../components/Users.vue';
+import Lesson from '../components/Lesson.vue'
 
 export default {
     components:{
         Users,
-    }, computed: mapGetters(["user"])
+        Lesson
+    }, 
+  computed: mapGetters(["user"])
 , methods: {
     ...mapActions(["getProfile"])
   },
   created() {
     this.getProfile();
 
-  }
 }
+  }
+
 </script>
 
 <style>

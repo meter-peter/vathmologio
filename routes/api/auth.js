@@ -6,9 +6,12 @@ const passport = require('passport');
 const key = require('../../config/keys').secret;
 const User = require('../../model/User');
 
+<<<<<<< Updated upstream
 /*
 
 */
+=======
+>>>>>>> Stashed changes
 
 router.post('/resolve',async (req,res)=>{
  

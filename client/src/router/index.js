@@ -7,7 +7,13 @@ Vue.use(Router)
 const router = new Router({
     mode: 'history',
     base: process.env.BASE_URL,
-    routes: [ {
+    routes: [
+      {
+        path: "/lesson/:id",
+        name: "lesson-details",
+        component: () => import('../views/LessonDetails.vue')
+      } ,
+      {
       path: '/admin',
       name: 'Admin',
       component: () => import('../views/Admin.vue'),
