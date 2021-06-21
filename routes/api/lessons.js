@@ -17,52 +17,204 @@ router.get('/', async (req, res) => {
     
     
     });
-
-//pairnei ws eisodo ena json body p exei ta stoixeia t mathimatos
-// kai an ikanopoiountai oi synthikes ginetai prosthiki tou mathimatos sti vasi
-router.post('/new', async (req, res) => {
-    var newlesson = new Lesson(req.body);
-    console.log(req.body);
-    Lesson.findOne({name:newlesson.name})
-    .catch(err=>{
-        return res.send(err);
-    })
-    .then(lesson=>{
-        if(lesson){
-            return res.status(400).json({
-                msg: "lesson Already Exists"
-            });
+//GET A SPECIFIC LESSON
+router.get('/getLesson/:lessonID' , async (req, res) =>{
+    let lesson = await Lesson.findById(req.params.lessonID).catch((err) =>{
+        if(err){
+            res.send(err);
         }
-    }).catch(err=>{
-        return res.send(err)
     });
-    
-    newlesson.save().then(()=>{
-        return res.status(201).json({
-            success:true,
-            msg:"Successfully added"
-        })
-    });
-  });
-
-//searching for specific lesson
-router.get('/search/:_id', async (req, res) =>{
-    const lesson = await Lesson.findById(req.params._id);
     if(lesson){
+        console.log(lesson);
         res.send(lesson);
     }
 })
 
+//GET A SPECIFIC LESSON_TEACHING
+router.get('/getLessonTeaching/:lessonTeachingID', async (req, res)=>{
+    let lessonTeachingID = await LessonTeaching.findById(req.params.lessonTeachingID).catch((err) =>{
+        if(err){
+            res.send(err);
+        }
+    });
+    if(lessonTeachingID){
+        console.log(lessonTeachingID);
+        res.send(lessonTeachingID);
+    }
+})
+
+//GET A SPECIFIC LESSON_STATEMENT
+router.get('/getLessonStatement/:lessonStatementID', async (req, res)=>{
+    let lessonStatementID = await LessonStatement.findById(req.params.lessonStatementID).catch((err) =>{
+        if(err){
+            res.send(err);
+        }
+    });
+    if(lessonStatementID){
+        console.log(lessonStatementID);
+        res.send(lessonStatementID);
+    }
+})
+//GET A SPECIFIC LESSON ASSIGNMENT
+router.get('/getLessonAssignment/:lessonAssignmentID', async (req, res)=>{
+    let lessonAssignmentID = await LessonAssignment.findById(req.params.lessonAssignmentID).catch((err) =>{
+        if(err){
+            res.send(err);
+        }
+    });
+    if(lessonAssignmentID){
+        console.log(lessonAssignmentID);
+        res.send(lessonAssignmentID);
+    }
+})
+
+router.get('/getLessons', async (req,res) =>{
+    console.log("I got here")
+    await Lesson.find({},(err, lessons)=>{
+        console.log("I got here")
+        res.send(lessons);
+    });
+})
+
+router.get('/getLessonAssignment', async (req,res) =>{
+    console.log("I got here")
+    await LessonAssignment.find({},(err, lessonAssignments)=>{
+        console.log("I got here")
+        res.send(lessonAssignments);
+    });
+})
 
 
-//ANA8ESI MA8IMATOS
-router.post('/assignment', async (req, res) =>{
-    let {lessonName, teacher} = req.body;
-    const assignment = new LessonAssignment();
+router.get('/getLessonTeaching', async (req,res) =>{
+    console.log("I got here debug 1")
+    await LessonTeaching.find({},(err, lessonTeachings)=>{
+        console.log("I got here debug 2")
+        res.send(lessonTeachings);
+    });
+})
 
-    assignment.lesson= lessonName;
-    assignment.teacher= teacher;
-    await assignment.save();
+router.get('/getLessonStatement', async (req,res) =>{
+    console.log("I got here debug 1")
+    await LessonStatement.find({},(err, lessonStatements)=>{
+        console.log("I got here debug 2")
+        res.send(lessonStatements);
+    });
+})
+
+router.post('/addLessonAssignment', async (req, res) =>{
+    const {lesson , teacher} = req.body;
+
+    let newAssignment = new LessonAssignment({
+        lesson,
+        teacher
+    })
+
+    console.log(newAssignment);
+    newAssignment.save().then(()=> {
+        return res.status(201).json({
+            success: true,
+            msg: "Assignment is now registered."
+        })
+    })
+})
+
+
+router.post('/addLessonTeaching', async (req, res) =>{
+    const {lessonAssignment , year, semester, theoryMultiplier, labMultiplier, theoryRestriction} = req.body;
+    await LessonTeaching.findById(lessonAssignment, (err, newLessonAssignment) =>{
+        let newLessonTeaching = new LessonTeaching({
+            newLessonAssignment,
+            year,
+            semester,
+            theoryMultiplier,
+            labMultiplier,
+            theoryRestriction
+        });
+
+        newLessonTeaching.save().then(()=>{
+            return res.status(201).json({
+                success: true,
+                msg: "LessonTeaching is now registered."
+            });
+        });
+        console.log(newLessonTeaching);
+    })
+
+})
+
+router.post('/addLessonStatement', async (req, res) =>{
+    const {lessonTeaching , student, theory_grade, lab_grade, final_state} = req.body;
+
+    await LessonTeaching.findById(lessonTeaching, (err, newLessonTeaching) =>{
+        Student.findById(student, (err, newStudent) =>{
+
+            let newLessonStatement = new LessonStatement({
+                newLessonTeaching,
+                newStudent,
+                theory_grade,
+                lab_grade,
+                final_state
+            });
+
+            newLessonStatement.save().then(()=>{
+                return res.status(201).json({
+                    success: true,
+                    msg: "LessonStatement is now registered."
+                });
+            });
+            console.log(newLessonStatement);
+        })
+
+    })
+
+
+})
+
+router.post('/addLesson', async (req, res) =>{
+    const {name , desc, requires} = req.body;
+    let requiredLesson = await Lesson.findById(requires)
+    let newLesson = new Lesson({
+        name,
+        desc,
+        requiredLesson
+    });
+
+    newLesson.save().then(()=>{
+        return res.status(201).json({
+            success: true,
+            msg: "Lesson is now registered."
+        });
+    });
+    console.log(newLesson);
+})
+
+
+//updating a specific lesson
+router.put('/updateLesson/:lessonId',async (req, res) =>{
+    const {name, desc, requiredLesson} = req.body;
+    const lesson= await Lesson.findByIdAndUpdate(req.params.lessonId, {
+        name,
+        desc,
+        requiredLesson
+    }).catch((err)=>{
+        if(err){
+            res.send(err);
+        }
+    })
+    return res.status(201).json({
+        success: true,
+        msg: "Lesson is now updated."
+    });
+
+})
+
+//deleting a lesson
+router.delete('/deleteLesson/:lessonName', async (req, res)=>{
+    const lesson = await Lesson.findById(req.params.lessonName);
+    if(lesson){
+        await lesson.remove();
+    }
+    return res.send(lesson);
 })
 
 module.exports = router;

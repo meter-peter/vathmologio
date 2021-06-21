@@ -10,6 +10,10 @@ const TeacherSchema = new Schema({
         lessonsTeaching:{
             type:[{type:Schema.Types.ObjectId}],
             ref:'lessons'
+        },
+        user:{
+            type:[{type:Schema.Types.ObjectId}],
+            ref:'users'
         }
 
     }
