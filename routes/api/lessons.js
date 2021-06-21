@@ -65,6 +65,19 @@ router.post('/assignment', async (req, res) =>{
     await assignment.save();
 })
 
+
+router.get('/getLesson/:lessonID' , async (req, res) =>{
+    let lesson = await Lesson.findById(req.params.lessonID).catch((err) =>{
+        if(err){
+            res.send(err);
+        }
+    });
+    if(lesson){
+        console.log(lesson);
+        res.send(lesson);
+    }
+})
+
 module.exports = router;
 
 

@@ -24,6 +24,14 @@ const router = new Router({
         }
       },    
        {
+        path: '/lesson/:id',
+        name: 'lesson-details',
+        component: () => import('../views/LessonDetails.vue'),
+        meta: {
+          requiresGuest: false
+        }
+      },
+      {
         path: '/login',
         name: 'login',
         component: () => import('../views/Login.vue'),

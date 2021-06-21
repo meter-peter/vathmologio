@@ -1,16 +1,13 @@
 <template>
-    <form>
-        <div class="well">
-            <h2>{{currentlesson.title}}</h2><a>{{currentlesson.sem}}</a>
-            <h3 >{{currentlesson.teacher.name+" "+currentlesson.teacher.lastname}}</h3>
+    <div class="well">
+            <h2>{{currentlesson.name}}</h2><a>{{currentlesson.sem}}</a>
+        
             <p>{{currentlesson.desc}}</p>
 
 
         </div>
       
-    </form>
-
-
+ 
 </template>
 
 <script>
@@ -22,18 +19,17 @@ import {
 
 export default {
     
-    computed:{
-        ...mapGetters(["currentlesson"])
-        }, 
+    computed:
+        mapGetters(["currentlesson"])
+        , 
 
     methods: {
-        ...mapActions(["getLessonById", "getLessonAuthors"])
+        ...mapActions(["getLessonById"])
 
     },
-    beforeMount() {
+   beforeMount() {
         this.getLessonById(this.$route.params.id);
-
-    },
+   },
 
     data: function () {
         return {}
@@ -43,5 +39,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>

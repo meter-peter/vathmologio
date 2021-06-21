@@ -4,12 +4,13 @@ const serverAdress ="http://localhost:5000/api/lessons";
 
 const state = {
    lessons : [],
-   currentlesson:null,
+   currentlesson:"",
    filteredlessons:null
 };
 
 const getters = {
    lessons: state => state.lessons,
+   currentlesson :state =>state.currentlesson
 };
 
 const actions = {
@@ -27,19 +28,27 @@ const actions = {
     }, lessondata) {
     
 
-            let res = await axios.post(serverAdress+'/api/lessons', lessondata);
+            let res = await axios.post(serverAdress+'/api/lessons/addLesson', lessondata);
             if (res.data.success !== undefined) {
                commit("got_lessons",res.data)   
             }
     
     },
-    // Get the user Profile
+    getLessonById({commit},lessonid){
+       axios.get(serverAdress+"/getLesson/"+lessonid).then(res=>{
+        commit('loadcurrentlesson',res.data)
+
+       })
+       .catch(err => console.log("ERROR"+err))
+   }
 
 };
 
 const mutations = {
 
-
+    loadcurrentlesson(state,lesson){
+        state.currentlesson = lesson;
+    },
     got_lessons(state,lessons){
         state.lessons = lessons;
     }

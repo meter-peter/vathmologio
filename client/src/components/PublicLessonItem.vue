@@ -3,7 +3,7 @@
     <div class="d-flex w-100 justify-content-between">
         <h5 class="mb-1">{{lesson.title}}</h5>
         <small class="text-muted">{{lesson.year}}</small>
-        <small>{{lesson.authors.name}}</small>
+    
     </div>
     <p class="mb-1">{{lesson.desc}}</p>
     <small class="text-muted">{{lesson.desc}}</small>

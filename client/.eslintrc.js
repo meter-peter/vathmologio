@@ -8,6 +8,7 @@ module.exports = {
     ecmaVersion: 2020,
   },
   rules: {
+    "vue/comment-directive": 0,
     "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
     "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off",
   },

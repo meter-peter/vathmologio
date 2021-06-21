@@ -10,17 +10,7 @@ const LessonTeaching = require('../../model/LessonTeaching');
 
 
 //GET A SPECIFIC LESSON
-router.get('/getLesson/:lessonID' , async (req, res) =>{
-    let lesson = await Lesson.findById(req.params.lessonID).catch((err) =>{
-        if(err){
-            res.send(err);
-        }
-    });
-    if(lesson){
-        console.log(lesson);
-        res.send(lesson);
-    }
-})
+
 //GET A SPECIFIC STUDENT
 router.get('/getStudent/:studentID', async (req, res)=>{
     let student = await Student.findById(req.params.lessonID).catch((err) =>{
