@@ -10,9 +10,10 @@ const LessonSchema = new Schema({
         type:String,
         required:true
     },
-    requires:{
+    requiredLesson:{
         type:[{type:Schema.Types.ObjectId}],
-        ref:'lessons'
+        ref:'lessons',
+        required:false
     }
     
     }

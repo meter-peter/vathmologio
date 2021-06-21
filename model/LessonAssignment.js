@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const lessons = require('../model/Lesson');
+const teacher = require('../model/Teacher');
 
 const LessonAssignmentSchema = new Schema({
         lesson:{
