@@ -52,11 +52,18 @@ const router = new Router({
         meta: {
         
         }
-      },
+        
+      },{
+       path: '/teacher-Dashboard',
+        name: 'teacher-Dashboard',
+        component: () => import('../views/TeacherDashboard.vue'),
+
      
       
-     ]
-  });
+       }
+      ]
+    }
+  );
   
   router.beforeEach((to, from, next) => {
     if (to.matched.some(record => record.meta.requiresAuth)) {

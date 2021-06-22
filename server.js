@@ -38,6 +38,9 @@ app.use('/api/lessons',lessons)
 
 const admin = require('./routes/admin')
 app.use('/admin',admin);
+
+const didaskalies = require('./routes/api/didaskalies');
+app.use('/didaskalies',didaskalies)
 // app.get('*', (req, res) => {
 //     res.sendFile(path.join(__dirname, 'public/index.html'));
 // })

@@ -19,4 +19,4 @@ const TeacherSchema = new Schema({
     }
 );
 
-module.exports = Lesson = mongoose.model('teachers',TeacherSchema);
+module.exports = Teacher = mongoose.model('teachers',TeacherSchema);

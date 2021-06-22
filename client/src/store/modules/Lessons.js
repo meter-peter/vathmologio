@@ -3,6 +3,7 @@ import store from '@/store'
 const serverAdress ="http://localhost:5000/api/lessons";
 
 const state = {
+    
    lessons : [],
    currentlesson:"",
    filteredlessons:null,

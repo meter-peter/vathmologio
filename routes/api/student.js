@@ -1,11 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const Lesson = require('../../model/Lesson');
-const Teacher = require('../../model/Teacher');
 const Student = require('../../model/Student');
-const LessonAssignment = require('../../model/LessonAssignment');
-const LessonStatement = require('../../model/LessonStatement');
-const LessonTeaching = require('../../model/LessonTeaching');
+
 
 
 router.post('/addStudent', async (req, res) =>{

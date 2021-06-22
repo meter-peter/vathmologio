@@ -1,16 +1,15 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const lessonTeaching = require('../model/LessonTeaching');
-const students = require('../model/Student');
+
 
 const LessonStatementSchema = new Schema({
         lessonTeaching:{
-            type:[{type:Schema.Types.ObjectId}],
+            type:Schema.Types.ObjectId,
             ref:'lessonTeaching',
             required:true
         },
         student:{
-            type:[{type:Schema.Types.ObjectId}],
+           type:Schema.Types.ObjectId,
             ref:'students',
             required:true
         },
@@ -34,4 +33,4 @@ const LessonStatementSchema = new Schema({
     }
 );
 
-module.exports = Lesson = mongoose.model('lessonStatement',LessonStatementSchema);
+module.exports = LessonStatement = mongoose.model('lessonStatements',LessonStatementSchema);

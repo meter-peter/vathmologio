@@ -5,7 +5,7 @@ const lessonAssignment = require('../model/LessonAssignment');
 const LessonTeachingSchema = new Schema({
         lessonAssignment:{
             type:[{type:Schema.Types.ObjectId}],
-            ref:'lessonsAssignment',
+            ref:'lessonsAssignments',
             required:true
         },
         year:{
@@ -34,4 +34,4 @@ const LessonTeachingSchema = new Schema({
     }
 );
 
-module.exports = Lesson = mongoose.model('lessonTeaching',LessonTeachingSchema);
+module.exports = Lesson = mongoose.model('lessonsTeaching',LessonTeachingSchema);

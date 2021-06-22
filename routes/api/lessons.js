@@ -76,13 +76,7 @@ router.get('/getLessons', async (req,res) =>{
     });
 })
 
-router.get('/getLessonAssignment', async (req,res) =>{
-    console.log("I got here")
-    await LessonAssignment.find({},(err, lessonAssignments)=>{
-        console.log("I got here")
-        res.send(lessonAssignments);
-    });
-})
+
 
 
 router.get('/getLessonTeaching', async (req,res) =>{
@@ -101,22 +95,6 @@ router.get('/getLessonStatement', async (req,res) =>{
     });
 })
 
-router.post('/addLessonAssignment', async (req, res) =>{
-    const {lesson , teacher} = req.body;
-
-    let newAssignment = new LessonAssignment({
-        lesson,
-        teacher
-    })
-
-    console.log(newAssignment);
-    newAssignment.save().then(()=> {
-        return res.status(201).json({
-            success: true,
-            msg: "Assignment is now registered."
-        })
-    })
-})
 
 
 router.post('/addLessonTeaching', async (req, res) =>{

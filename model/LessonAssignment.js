@@ -5,15 +5,19 @@ const teacher = require('../model/Teacher');
 
 const LessonAssignmentSchema = new Schema({
         lesson:{
-            type:[{type:Schema.Types.ObjectId}],
+            type:Schema.Types.ObjectId,
             ref:'lessons'
         },
         teacher:{
-            type:[{type:Schema.Types.ObjectId}],
+            type:Schema.Types.ObjectId,
             ref:'teachers'
         },
+        statements:{
+            type:[{type:Schema.Types.ObjectId}],
+            ref:'lessonStatements'
+        }
 
     }
 );
 
-module.exports = Lesson = mongoose.model('lessonsAssignment',LessonAssignmentSchema);
+module.exports = LessonAssignment = mongoose.model('lessonsAssignments',LessonAssignmentSchema);

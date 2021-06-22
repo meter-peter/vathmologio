@@ -10,8 +10,10 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 Vue.use(VueSweetalert2);
 Vue.use(BootstrapVue)
+import VueGoodTablePlugin from 'vue-good-table';
+import 'vue-good-table/dist/vue-good-table.css'
 import VModal from 'vue-js-modal'
-
+Vue.use(VueGoodTablePlugin);
 
 Vue.use(VModal, { componentName: 'lessonmodal' })
 
