@@ -11,6 +11,9 @@
 </template>
 
 <script>
+
+
+
 import {
     mapActions,
     mapGetters
@@ -36,6 +39,8 @@ export default {
     }
 
 }
+
+
 </script>
 
 <style scoped>
