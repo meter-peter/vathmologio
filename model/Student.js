@@ -12,8 +12,13 @@ const StudentSchema = new Schema({
             required:true
         },
         user:{
-            type:[{type:Schema.Types.ObjectId}],
+            type:{type:Schema.Types.ObjectId},
             ref:'users'
+        },
+        didaskalies:{
+            type:[{type:Schema.Types.ObjectId}],
+            
+            
         }
     }
 );

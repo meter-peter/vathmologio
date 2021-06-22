@@ -8,12 +8,12 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(row,index_row) in data" :key="index_row" v-bind:class="{ editing: editId === row.id }" >
+                <tr v-for="(row,index_row) in data" :key="index_row" v-bind:class="{ editing: editId === row._id }" >
                     <td v-for="(column,index) in columns" :key="index"> {{row[column]}} </td>    
                     <td>
                         <p class="buttons">
                             <a class="button is-small is-primary" @click="editCustomer(row)">Edit</a>
-                            <a class="button is-small is-danger" @click="deleteCustomer(row.id)">Delete</a>
+                            <a class="button is-small is-danger" @click="deleteCustomer(row._id)">Delete</a>
                         </p>
                     </td>   
                 </tr>

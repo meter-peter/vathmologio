@@ -12,6 +12,7 @@ Vue.use(VueSweetalert2);
 Vue.use(BootstrapVue)
 import VModal from 'vue-js-modal'
 
+
 Vue.use(VModal, { componentName: 'lessonmodal' })
 
 

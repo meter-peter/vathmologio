@@ -45,7 +45,7 @@ export default {
         editId(val){
             if(val){
                 let current = this.lessons.filter(i => {
-                    if(i.id==val) return true;
+                    if(i._id==val) return true;
                     else false;
                 })[0]
                 this.lesson.name = current.name;

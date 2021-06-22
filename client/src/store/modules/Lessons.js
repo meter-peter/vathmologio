@@ -1,20 +1,17 @@
 import axios from 'axios';
-
+import store from '@/store'
 const serverAdress ="http://localhost:5000/api/lessons";
 
 const state = {
    lessons : [],
    currentlesson:"",
-   filteredlessons:null
+   filteredlessons:null,
+   error : null
 };
 
 const getters = {
-<<<<<<< Updated upstream
    lessons: state => state.lessons,
    currentlesson :state =>state.currentlesson
-=======
-  lessons: state => state.lessons,
->>>>>>> Stashed changes
 };
 
 const actions = {
@@ -30,37 +27,36 @@ const actions = {
     async addLesson({
         commit
     }, lessondata) {
-<<<<<<< Updated upstream
     
 
-            let res = await axios.post(serverAdress+'/api/lessons/addLesson', lessondata);
-=======
-            let res = await axios.post(serverAdress+'/new', lessondata);
->>>>>>> Stashed changes
+            let res = await axios.post(serverAdress+'/addLesson', lessondata);
             if (res.data.success !== undefined) {
-               commit("got_lessons",res.data)   
+                commit("addRequest",res.data.msg);
+               store.dispatch("loadlessons")
+           
             }
     
     },
-<<<<<<< Updated upstream
-    getLessonById({commit},lessonid){
+   async getLessonById({commit},lessonid){
        axios.get(serverAdress+"/getLesson/"+lessonid).then(res=>{
         commit('loadcurrentlesson',res.data)
 
        })
        .catch(err => console.log("ERROR"+err))
-   }
-=======
-    async getLessonbyid({commit}){
-        await axios.get()
-    }
+   },
 
-    // Get the user Profile
->>>>>>> Stashed changes
-
-};
-
+   removeLesson({commit},lessonid){
+        console.log(lessonid)
+        const res = axios.delete(serverAdress+"/deleteLesson/"+lessonid);
+        commit("got_lessons",this.lessons)
+        return res
+    },
+}
 const mutations = {
+
+    addRequest(state,lesson){
+        state.error=lesson;
+    },
 
     loadcurrentlesson(state,lesson){
         state.currentlesson = lesson;

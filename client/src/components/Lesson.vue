@@ -9,12 +9,12 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(row,index_row) in data" :key="index_row" v-bind:class="{ editing: editId === row.id }" >
+                <tr v-for="(row,index_row) in data" :key="index_row" v-bind:class="{ editing: editId === row._id }" >
                     <td v-for="(column,index) in columns" :key="index"> {{row[column]}} </td>    
                     <td>
                         <p class="buttons">
                             <a class="button is-small is-primary" @click="editLesson(row)">Edit</a>
-                            <a class="button is-small is-danger" @click="deleteLesson(row.id)">Delete</a>
+                            <a class="button is-small is-danger" @click="deleteLesson(row._id)">Delete</a>
                         </p>
                     </td>   
                 </tr>
@@ -48,6 +48,7 @@ export default {
             return {
                 showAdd:true,
                 editId:'',
+                lesson:""
             }
         },
         computed: {
@@ -63,29 +64,21 @@ export default {
     methods:{
         ...mapActions(["loadlessons"]),
             editLesson(lesson){
-                this.editId = lesson.id;
+                this.editId = lesson._id;
                 this.showAdd = false;
             },
             addLesson(){
                 this.editId = "";
                 this.showAdd = true;
             },
-            deleteLesson(lesson){
-                this.$swal({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
-                    type: 'warning',
-                    showCancelButton: true,
-                    confirmButtonText: 'Yes, delete it!'
-                    }).then((result) => {
-                    if (result.value) {
-                        
-                        this.$store.dispatch('removeLesson',lesson).then((res)=>{
-                            if(res) this.$swal(
+            deleteLesson(lessonid){
+               this.$store.dispatch('removeLesson',lessonid).then((res)=>{
+                            if(res) {this.$swal(
                                     'Deleted!',
                                     'Record has been deleted.',
                                     'success'
                                     )
+                                    this.loadlessons();}
                             else this.$swal(
                                     'Fail!',
                                     'Fail to delete record.',
@@ -94,11 +87,15 @@ export default {
                         });
                         
                     }
-                    })
+                    }
+   
             }
-        }
+            
+            
         
-}
+        
+        
+
 </script>
 
 <style>
