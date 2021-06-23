@@ -28,15 +28,6 @@ const actions = {
         .catch(err => console.log(err))
     },
 
-    async loadlessonsteaching({commit}){
-        axios
-        .get(serverAdress+'/getLessonTeaching')
-        .then(res =>{
-            commit('got_lessonsteaching' , res.data)
-        })
-        .catch(err => console.log(err))
-    },
-
 
     async addLesson({
         commit
@@ -92,7 +83,7 @@ const actions = {
 
     async loadlessonsteaching({commit}){
         axios
-        .get(serverAdress)
+        .get(serverAdress+'/getLessonTeaching')
         .then(res =>{
             commit('got_lessons' , res.data)
         })

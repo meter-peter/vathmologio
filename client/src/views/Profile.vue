@@ -29,6 +29,7 @@
 </vue-good-table>
 
 
+
         </div>
 </template>
 
@@ -66,14 +67,14 @@ export default {
     }, 
   computed: mapGetters(["user","lessonsteaching"])
 , methods: {
-    ...mapActions(["getProfile","beStudent","getLessonsTeaching"]),
+    ...mapActions(["getProfile","beStudent","loadlessonsteaching"]),
      submit(){
          const body ={am:this.am ,year_registered:2021, user:this.user._id}
          this.beStudent(body);
   },},
   created() {
     this.getProfile();
-    this.getLessonsTeaching();
+    this.loadlessonsteaching();
 
 }
   }
