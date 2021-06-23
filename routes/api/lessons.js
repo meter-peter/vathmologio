@@ -139,16 +139,21 @@ router.post('/addLessonTeaching', async (req, res) =>{
 
 router.post('/addLessonStatement', async (req, res) =>{
     const {studentID, lessonTeachings} = req.body;
+    let lessonStatementList = [];
     let i=0;
     for(i in lessonTeachings){
         let newLessonStatement = new LessonStatement({
             student:studentID,
             lessonTeaching:lessonTeachings[i]
         });
+
         newLessonStatement.save();
+
+        lessonStatementList.push(newLessonStatement);
         console.log(newLessonStatement);
     }
-
+    console.log(lessonStatementList);
+    let student = Student.findByIdAndUpdate({studentID}, {statements:lessonStatementList}).catch((err)=>{res.send(err)});
 })
 
 router.post('/addLesson', async (req, res) =>{
