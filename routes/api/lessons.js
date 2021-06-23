@@ -76,15 +76,34 @@ router.get('/getLessons', async (req,res) =>{
     });
 })
 
-
-
-
 router.get('/getLessonTeaching', async (req,res) =>{
     console.log("I got here debug 1")
     await LessonTeaching.find({},(err, lessonTeachings)=>{
         console.log("I got here debug 2")
         res.send(lessonTeachings);
     });
+})
+
+router.get('/getLessonStatementbyStudent/:studentID', async (req,res) =>{
+
+    console.log("I got here debug 1")
+    await LessonStatement.find({student:req.params.studentID},(err, lessonStatements)=>{
+        console.log("I got here debug 2")
+        console.log(lessonStatements)
+        res.send(lessonStatements);
+
+    }).catch((err)=>{res.send(err)});
+})
+
+router.get('/getLessonStatementbyTeacher/:lessonTeachingID', async (req,res) =>{
+
+    console.log("I got here debug 1")
+    await LessonStatement.find({lessonTeaching:req.params.lessonTeachingID},(err, lessonStatements)=>{
+        console.log("I got here debug 2")
+        console.log(lessonStatements)
+        res.send(lessonStatements);
+
+    }).catch((err)=>{res.send(err)});
 })
 
 router.get('/getLessonStatement', async (req,res) =>{
@@ -103,6 +122,7 @@ router.post('/addLessonTeaching', async (req, res) =>{
         let newLessonTeaching = new LessonTeaching({
             lesson:lessonID,
             teacher:teacherID
+
         });
 
             newLessonTeaching.save().then(()=>{
@@ -118,7 +138,7 @@ router.post('/addLessonTeaching', async (req, res) =>{
 })
 
 router.post('/addLessonStatement', async (req, res) =>{
-    const {lessonTeaching , student, theory_grade, lab_grade, final_state} = req.body;
+    const {lessonTeachingID , student, theory_grade, lab_grade, final_state} = req.body;
 
     await LessonTeaching.findById(lessonTeaching, (err, newLessonTeaching) =>{
         Student.findById(student, (err, newStudent) =>{
