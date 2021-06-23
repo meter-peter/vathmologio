@@ -24,8 +24,6 @@ mongoose.connect(db, {
 }).catch(err => {
     console.log(`Unable to connect with the database ${err}`)
 });
-const add_get_Data = require('./routes/api/student');
-app.use('/api/add_get_Data',add_get_Data);
 
 const excel = require('./routes/api/excel');
 app.use('/api/excel',excel);
@@ -44,6 +42,9 @@ app.use('/api/didaskalies',didaskalies);
 
 const teacher = require ('./routes/api/teacher');
 app.use('/api/teacher',teacher);
+
+const student = require('./routes/api/student');
+app.use('/api/student',student);
 // app.get('*', (req, res) => {
 //     res.sendFile(path.join(__dirname, 'public/index.html'));
 // })

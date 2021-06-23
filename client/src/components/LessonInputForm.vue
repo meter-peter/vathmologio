@@ -2,13 +2,13 @@
 <div>
     <form @submit="submit($event)">
         <div class="field">
-            <label class="label">{{editAddText}} First Name</label>
+            <label class="label">{{editAddText}} Name</label>
             <div class="control">
                 <input class="input" v-model="lesson.name" type="text" placeholder="First Name" required>
             </div>
         </div>
         <div class="field">
-            <label class="label">{{editAddText}} Last Name</label>
+            <label class="label">{{editAddText}} Desc</label>
             <div class="control">
                 <input class="input" v-model="lesson.desc" type="text" placeholder="Last Name" required>
             </div>

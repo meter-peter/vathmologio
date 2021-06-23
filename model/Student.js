@@ -8,16 +8,16 @@ const StudentSchema = new Schema({
         },
 
         year_registered:{
-            type:String,
+            type:Number,
             required:true
         },
         user:{
             type:Schema.Types.ObjectId,
             ref:'users'
         },
-        didaskalies:{
+        statements:{
             type:[{type:Schema.Types.ObjectId}],
-            ref:'lessonAssignments'
+            ref:'lessonStatements'
         }
 
     }

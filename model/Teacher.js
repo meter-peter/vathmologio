@@ -6,8 +6,8 @@ const TeacherSchema = new Schema({
             type:Number
         },
 
-        lessonsTeaching:{
-            type:[{type:Schema.Types.ObjectId}],
+        lessonTeaching:{
+            type:Schema.Types.ObjectId,
             ref:'lessons'
         },
         user:{

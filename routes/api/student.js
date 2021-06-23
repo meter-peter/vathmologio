@@ -6,18 +6,18 @@ const Student = require('../../model/Student');
 
 router.post('/addStudent', async (req, res) =>{
     const {am , year_registered,user} = req.body;
+    console.log(req.body)
     let newStudent = new Student({
         am,
         year_registered,
-        user
+        user,
+        statements:[]
     });
 
-    newStudent.save().then(()=>{
-        return res.status(201).json({
-            success: true,
-            msg: "Student is now registered."
-        });
-    });
+    newStudent.save();
+    User.findByIdAndUpdate(user,{student: newStudent._id},function(err, user) {
+        
+    })
     console.log(newStudent);
 })
 

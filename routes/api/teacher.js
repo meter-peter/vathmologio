@@ -3,20 +3,18 @@ const router = express.Router();
 const Lesson = require('../../model/Lesson');
 const Teacher = require('../../model/Teacher');
 const Student = require('../../model/Student');
-const LessonAssignment = require('../../model/LessonAssignment');
+
 const LessonStatement = require('../../model/LessonStatement');
 const LessonTeaching = require('../../model/LessonTeaching');
 const User = require('../../model/User');
+
+
 router.post('/addTeacher', async (req, res) => {
-
-
-
-        let newTeacher = new Teacher({
+            let newTeacher = new Teacher({
             teacherRank: 0,
-            lessonsTeaching:[],
+            lessonTeaching: null,
             user:req.body.user
-         
-        });
+            });
        
         newTeacher.save();
 

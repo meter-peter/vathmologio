@@ -9,6 +9,11 @@ const router = new Router({
     base: process.env.BASE_URL,
     routes: [
       {
+        path: "/student",
+        name: "student",
+        component: () => import('../views/Profile.vue')
+      } ,
+      {
         path: "/lesson/:id",
         name: "lesson-details",
         component: () => import('../views/LessonDetails.vue')
@@ -83,7 +88,7 @@ const router = new Router({
         if (store.getters.isTeacher) {
           next();
         } else {
-          next('/profile');
+          next('/teacher-Dashboard');
         }}
         else {
       next()

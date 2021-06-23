@@ -1,7 +1,6 @@
 const express = require('express');
 const xlsx = require("xlsx");
 const router = express.Router();
-const LessonAssignment = require('../../model/LessonAssignment');
 const LessonStatement = require('../../model/LessonStatement');
 const LessonTeaching = require('../../model/LessonTeaching');
 const Student = require('../../model/Student');

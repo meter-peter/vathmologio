@@ -3,7 +3,7 @@ const router = express.Router();
 const Lesson = require('../../model/Lesson');
 const Teacher = require('../../model/Teacher');
 const Student = require('../../model/Student');
-const LessonAssignment = require('../../model/LessonAssignment');
+
 const LessonStatement = require('../../model/LessonStatement');
 const LessonTeaching = require('../../model/LessonTeaching');
 
@@ -99,21 +99,17 @@ router.get('/getLessonStatement', async (req,res) =>{
 
 router.post('/addLessonTeaching', async (req, res) =>{
     const {lessonID , teacherID} = req.body;
-
-        let newLessonTeaching = await new LessonTeaching({
+        console.log(req.body)
+        let newLessonTeaching = new LessonTeaching({
             lesson:lessonID,
             teacher:teacherID
         });
 
-        await newLessonTeaching.save().then(()=>{
+            newLessonTeaching.save().then(()=>{
 
-            let teacher = Teacher.findById(teacherID).catch((err)=>{res.send(err);})
-            teacher.lessonTeaching = newLessonTeaching;
-            return res.status(201).json({
-                success: true,
-                msg: "LessonTeaching is now registered."
-            });
-
+            Teacher.findByIdAndUpdate(newLessonTeaching.teacher,{lessonTeaching: newLessonTeaching._id},function(err, user) {
+        
+            })
         }).catch((err)=>{
             res.send(err);
         });
