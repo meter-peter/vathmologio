@@ -40,7 +40,10 @@ const admin = require('./routes/admin')
 app.use('/admin',admin);
 
 const didaskalies = require('./routes/api/didaskalies');
-app.use('/didaskalies',didaskalies)
+app.use('/api/didaskalies',didaskalies);
+
+const teacher = require ('./routes/api/teacher');
+app.use('/api/teacher',teacher);
 // app.get('*', (req, res) => {
 //     res.sendFile(path.join(__dirname, 'public/index.html'));
 // })

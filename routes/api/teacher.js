@@ -6,26 +6,25 @@ const Student = require('../../model/Student');
 const LessonAssignment = require('../../model/LessonAssignment');
 const LessonStatement = require('../../model/LessonStatement');
 const LessonTeaching = require('../../model/LessonTeaching');
-
+const User = require('../../model/User');
 router.post('/addTeacher', async (req, res) => {
-    const {teacherRank, lessonsTeaching, user} = req.body;
-    let allLessons = []
-    console.log(lessonsTeaching);
+
+
 
         let newTeacher = new Teacher({
-            teacherRank,
-            lessonsTeaching,
-            user
-        })
-
-        await newTeacher.save().then(() => {
-            return res.status(201).json({
-                success: true,
-                msg: "Teacher is now registered."
-            });
+            teacherRank: 0,
+            lessonsTeaching:[],
+            user:req.body.user
+         
         });
-        console.log(newTeacher)
+       
+        newTeacher.save();
 
+    User.findByIdAndUpdate(newTeacher.user,{teacher: newTeacher._id},function(err, user) {
+        
+          })
+        console.log()
+        console.log(newTeacher)
 })
 
 router.get('/getTeachers', async (req, res)=>{

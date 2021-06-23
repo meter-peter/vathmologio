@@ -3,8 +3,7 @@ const Schema = mongoose.Schema;
 
 const TeacherSchema = new Schema({
         teacherRank:{
-            type:Number,
-            required:true
+            type:Number
         },
 
         lessonsTeaching:{
@@ -12,8 +11,9 @@ const TeacherSchema = new Schema({
             ref:'lessons'
         },
         user:{
-            type:[{type:Schema.Types.ObjectId}],
-            ref:'users'
+            type:Schema.Types.ObjectId,
+            ref:'users',
+            required:true
         }
 
     }

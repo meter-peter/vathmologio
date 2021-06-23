@@ -8,11 +8,12 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(row,index_row) in data" :key="index_row" v-bind:class="{ editing: editId === row._id }" >
+                <tr v-for="(row,index_row) in users" :key="index_row" v-bind:class="{ editing: editId === row._id }" >
                     <td v-for="(column,index) in columns" :key="index"> {{row[column]}} </td>    
                     <td>
                         <p class="buttons">
-                            <a class="button is-small is-primary" @click="editCustomer(row)">Edit</a>
+                            <a class="button is-small is-primary" @click="makeT(row._id)">Teacher</a>
+                      
                             <a class="button is-small is-danger" @click="deleteCustomer(row._id)">Delete</a>
                         </p>
                     </td>   
@@ -44,14 +45,25 @@ export default {
         },
 
  methods:{
-     ...mapActions(["loadusers"])
+     ...mapActions(["loadusers","makeTeacher"])
+     ,
+     makeT(userid){
+         console.log(userid)
 
-     
- },
+         let data = {teacherRank :0, lessonsTeaching : [] ,user:userid};
+        this.$store.dispatch('makeTeacher',data).then((res)=>{
+                            if(res) {this.$swal(
+                                    'He is a teacher now',
+                                    'success'
+                                    )
+         }})
+},},
     created() {
         this.loadusers();
+      
 
 }}
+
 </script>
 
 <style>
