@@ -9,7 +9,7 @@ const LessonStatementSchema = new Schema({
             required:true
         },
         student:{
-           type:Schema.Types.ObjectId,
+            type:Schema.Types.ObjectId,
             ref:'students',
             required:true
         },

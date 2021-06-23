@@ -98,25 +98,26 @@ router.get('/getLessonStatement', async (req,res) =>{
 
 
 router.post('/addLessonTeaching', async (req, res) =>{
-    const {lessonAssignment , year, semester, theoryMultiplier, labMultiplier, theoryRestriction} = req.body;
-    await LessonTeaching.findById(lessonAssignment, (err, newLessonAssignment) =>{
-        let newLessonTeaching = new LessonTeaching({
-            newLessonAssignment,
-            year,
-            semester,
-            theoryMultiplier,
-            labMultiplier,
-            theoryRestriction
+    const {lessonID , teacherID} = req.body;
+
+        let newLessonTeaching = await new LessonTeaching({
+            lesson:lessonID,
+            teacher:teacherID
         });
 
-        newLessonTeaching.save().then(()=>{
+        await newLessonTeaching.save().then(()=>{
+
+            let teacher = Teacher.findById(teacherID).catch((err)=>{res.send(err);})
+            teacher.lessonTeaching = newLessonTeaching;
             return res.status(201).json({
                 success: true,
                 msg: "LessonTeaching is now registered."
             });
+
+        }).catch((err)=>{
+            res.send(err);
         });
         console.log(newLessonTeaching);
-    })
 
 })
 

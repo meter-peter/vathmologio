@@ -10,7 +10,7 @@ const Lesson = require('../../model/Lesson');
 
 //UPDATE GRADES WITH EXCEL FILE !!
 router.post('/excelFile' , async (req,res) =>{
-    const excelPathName = req.body.pathname;
+    const excelPathName = req.body.excelPathName;
     console.log(excelPathName);
     const wb = xlsx.readFile(excelPathName);
     const worksheet = wb.Sheets["students_grades"];
@@ -35,16 +35,13 @@ router.post('/excelFile' , async (req,res) =>{
             }
         }
     }
+    console.log(post);
     for(i in posts){
-        const student = await Student.findOne({AM:posts[i].AM}).then( (err, student) =>{
-            if(err){
-                res.send(err);
-            }else if(student){
+        await Student.findOne({AM:posts[i].AM}).then( (student) =>{
+            if(student){
                 console.log('I found a student : ',student);
-                const lessonStatement = LessonStatement.findOne({Student: student}).then((err, lessonStatement) =>{
-                    if(err){
-                        res.send(err);
-                    }else if(lessonStatement){
+                LessonStatement.findOne({Student: student}).then((lessonStatement) =>{
+                    if(lessonStatement){
                         lessonStatement.theory_grade= posts[i].theory_grade;
                         lessonStatement.lab_grade= posts[i].lab_grade;
                         lessonStatement.save();
@@ -53,11 +50,9 @@ router.post('/excelFile' , async (req,res) =>{
                         res.send(201).json({
                             success:true,
                             msg:"Successfully added"
-                        })
+                        }).catch(err);
                     }
-
                 })
-
             }
         })
     }

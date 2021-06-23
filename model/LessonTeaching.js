@@ -30,7 +30,6 @@ const LessonTeachingSchema = new Schema({
             type:Number,
             required:true
         }
-
     }
 );
 
