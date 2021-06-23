@@ -103,12 +103,13 @@ router.post('/addLessonTeaching', async (req, res) =>{
         let newLessonTeaching = await new LessonTeaching({
             lesson:lessonID,
             teacher:teacherID
+
         });
 
         await newLessonTeaching.save().then(()=>{
 
             let teacher = Teacher.findById(teacherID).catch((err)=>{res.send(err);})
-            teacher.lessonTeaching = newLessonTeaching;
+            teacher.lessonTeaching = newLessonTeaching._id;
             return res.status(201).json({
                 success: true,
                 msg: "LessonTeaching is now registered."
@@ -122,7 +123,7 @@ router.post('/addLessonTeaching', async (req, res) =>{
 })
 
 router.post('/addLessonStatement', async (req, res) =>{
-    const {lessonTeaching , student, theory_grade, lab_grade, final_state} = req.body;
+    const {lessonTeachingID , student, theory_grade, lab_grade, final_state} = req.body;
 
     await LessonTeaching.findById(lessonTeaching, (err, newLessonTeaching) =>{
         Student.findById(student, (err, newStudent) =>{

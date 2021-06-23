@@ -1,11 +1,12 @@
 const express = require('express');
 const xlsx = require("xlsx");
 const router = express.Router();
-const LessonAssignment = require('../../model/LessonAssignment');
-const LessonStatement = require('../../model/LessonStatement');
-const LessonTeaching = require('../../model/LessonTeaching');
+
+// const LessonAssignment = require('../../model/LessonAssignment');
+// const LessonStatement = require('../../model/LessonStatement');
+// const LessonTeaching = require('../../model/LessonTeaching');
 const Student = require('../../model/Student');
-const Lesson = require('../../model/Lesson');
+// const Lesson = require('../../model/Lesson');
 
 
 //UPDATE GRADES WITH EXCEL FILE !!
@@ -35,13 +36,13 @@ router.post('/excelFile' , async (req,res) =>{
             }
         }
     }
-    console.log(post);
+    console.log(posts);
     for(i in posts){
         await Student.findOne({AM:posts[i].AM}).then( (student) =>{
-            if(student){
+
                 console.log('I found a student : ',student);
                 LessonStatement.findOne({Student: student}).then((lessonStatement) =>{
-                    if(lessonStatement){
+
                         lessonStatement.theory_grade= posts[i].theory_grade;
                         lessonStatement.lab_grade= posts[i].lab_grade;
                         lessonStatement.save();
@@ -50,11 +51,17 @@ router.post('/excelFile' , async (req,res) =>{
                         res.send(201).json({
                             success:true,
                             msg:"Successfully added"
-                        }).catch(err);
-                    }
-                })
-            }
-        })
+                        }).catch((error => {
+                            res.send(err);
+                        }));
+
+                }).catch((error => {
+                    res.send(err);
+                }));
+
+        }).catch((error => {
+            res.send(err);
+        }));
     }
     console.log(posts[0].AM);
 })
@@ -133,8 +140,5 @@ router.post('exportExcelFile', async (req, res) =>{
 
 
 })
-
-
-
 
 module.exports = router;
