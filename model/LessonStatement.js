@@ -24,7 +24,7 @@ const LessonStatementSchema = new Schema({
         },
         final_state:{
             type:Boolean,
-            required:true
+            required:false
         }
 
 

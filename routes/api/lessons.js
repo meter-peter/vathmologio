@@ -76,13 +76,17 @@ router.get('/getLessons', async (req,res) =>{
     });
 })
 
-router.get('/getLessonTeaching', async (req,res) =>{
+router.get('/getLessonTeachings', async (req,res) =>{
     console.log("I got here debug 1")
-    await LessonTeaching.find({},(err, lessonTeachings)=>{
+        LessonTeaching.find({}).populate("lesson").
+        exec(function (err, lessonTeachings) {
+          if (err) return handleError(err);
+        
+          res.send(lessonTeachings);
+        });;
         console.log("I got here debug 2")
-        res.send(lessonTeachings);
-    });
-})
+        
+    })
 
 router.get('/getLessonStatementbyStudent/:studentID', async (req,res) =>{
 
@@ -138,6 +142,7 @@ router.post('/addLessonTeaching', async (req, res) =>{
 })
 
 router.post('/addLessonStatement', async (req, res) =>{
+    console.log(req.body)
     const {studentID, lessonTeachings} = req.body;
     let lessonStatementList = [];
     let i=0;
@@ -148,10 +153,10 @@ router.post('/addLessonStatement', async (req, res) =>{
         });
 
         newLessonStatement.save();
-
-        lessonStatementList.push(newLessonStatement);
-        console.log(newLessonStatement);
+        console.log(newLessonStatement)
+      
     }
+    
     console.log(lessonStatementList);
     let student = Student.findByIdAndUpdate({studentID}, {statements:lessonStatementList}).catch((err)=>{res.send(err)});
 })

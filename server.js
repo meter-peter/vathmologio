@@ -26,7 +26,7 @@ mongoose.connect(db, {
 });
 
 const excel = require('./routes/api/excel');
-app.use('/api/excel',excel);
+app.use('/api/grades/excel',excel);
 
 const auth = require('./routes/api/auth');
 app.use('/api/auth',auth);

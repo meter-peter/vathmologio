@@ -4,6 +4,9 @@ const Schema = mongoose.Schema;
 
 
 LessonTeachingSchema = new Schema({
+        name:{
+            type:String
+        },
         lesson:{
         type:Schema.Types.ObjectId,
         ref:'lessons'

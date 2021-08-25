@@ -13,6 +13,11 @@ const router = new Router({
         name: "student",
         component: () => import('../views/Profile.vue')
       } ,
+       {
+        path: "/assessment",
+        name: "assessment",
+        component: () => import('../views/GradesByTeacher.vue')
+      } ,
       {
         path: "/lesson/:id",
         name: "lesson-details",

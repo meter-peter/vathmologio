@@ -1,7 +1,12 @@
 <template>
 <div>
   <b-navbar type="dark" variant="dark">
+   
     <b-navbar-nav>
+ <a class="navbar-brand" href="#">
+    <img src="https://voxeurop.eu/wp-content/uploads/2020/04/mayk-wings.jpg" width="30" height="30" alt="">
+  </a>
+      
       <b-nav-item href="#">Home</b-nav-item>
 
       <!-- Navbar dropdowns -->
@@ -40,4 +45,14 @@ export default {
 </script>
 
 <style>
+
+.img {
+    object-fit:cover;
+    height:100px ;
+}
+
+.navbar-brand {
+  margin-left: 10px;
+  object-fit:cover;
+}
 </style>

@@ -4,11 +4,13 @@ const serverAdress ="http://localhost:5000/api/lessons";
 
 const state = {
     
+
    lessons : [],
    lessonsteaching : [],
    currentlesson:"",
    filteredlessons:null,
    error : null
+   
 };
 
 const getters = {
@@ -24,6 +26,15 @@ const actions = {
         .get(serverAdress)
         .then(res =>{
             commit('got_lessons' , res.data)
+        })
+        .catch(err => console.log(err))
+    },
+
+    async loadlessonsteaching({commit}){
+        axios
+        .get(serverAdress+'/getLessonTeachings')
+        .then(res =>{
+            commit('got_lessonsteaching' , res.data)
         })
         .catch(err => console.log(err))
     },
@@ -63,8 +74,9 @@ const actions = {
             
             const req ={lessonID,teacherID};
     
-            let res = await axios.post(serverAdress+'/addLessonTeaching', req);
+            let res = await axios.post(serverAdress+'/addLessonStatement', req);
             if (res.data.success !== undefined) {
+                console.log(res.data)
                 commit("addRequest",res.data.msg);
            
             }
@@ -74,21 +86,25 @@ const actions = {
             
        
             let res = await axios.post('http://localhost:5000/api/student/addStudent', body);
-            if (res.data.success !== undefined) {
+            if (!res.data.success !== undefined) {
                 commit("addRequest",res.data.msg);
            
             }
     
     },
+    
+    async createStatement({commit},statement){
+        console.log(statement)
+        let res = await axios.post('http://localhost:5000/api/lessons/addLessonStatement',statement);
+        if (!res.data.success !== undefined) {
+            console.log(statement)
+            commit("addRequest",res.data.msg);
+       
+        }
 
-    async loadlessonsteaching({commit}){
-        axios
-        .get(serverAdress+'/getLessonTeaching')
-        .then(res =>{
-            commit('got_lessons' , res.data)
-        })
-        .catch(err => console.log(err))
-    },
+    }
+
+ 
 
 
 }
